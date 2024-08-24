@@ -1,6 +1,33 @@
 import React from "react";
 
 function Heading() {
+  let menu = [
+    {
+      name: "Swiggy Corporate",
+      image: "fi-rr-shopping-bag",
+    },
+    {
+      name: "Search",
+      image: "fi-rr-search",
+    },
+    {
+      name: "Offers",
+      image: "fi-rr-badge-percent",
+    },
+    {
+      name: "Help",
+      image: "fi-rr-info",
+    },
+    {
+      name: "Sign In",
+      image: "fi-rr-shopping-bag",
+    },
+    {
+      name: "Cart",
+      image: "fi-rr-shopping-cart",
+    },
+  ];
+
   return (
     <div className="w-full shadow-md h-20 flex justify-center items-center">
       <div className="w-[80%] flex justify-between">
@@ -20,31 +47,13 @@ function Heading() {
         </div>
 
         {/* navbar */}
-        <div className="flex items-center gap-9">
-          <div className="flex gap-2">
-            <i className="fi fi-rr-shopping-bag"></i>
-            <p>Swiggy Corporate</p>
-          </div>
-          <div className="flex gap-2">
-            <i className="fi fi-rr-search"></i>
-            <p>Search</p>
-          </div>
-          <div className="flex gap-2">
-            <i className="fi fi-rr-badge-percent"></i>
-            <p>Offers</p>
-          </div>
-          <div className="flex gap-2">
-            <i className="fi fi-rr-info"></i>
-            <p>Help</p>
-          </div>
-          <div className="flex gap-2">
-            <i className="fi fi-rs-user"></i>
-            <p>Sign In</p>
-          </div>
-          <div className="flex gap-2">
-            <i className="fi fi-rs-shopping-cart"></i>
-            <p>Cart</p>
-          </div>
+        <div className="flex items-center gap-14">
+          {menu.map((data, i) => (
+            <div key={i} className="flex gap-2 text-gray-600 font-medium">
+              <i className={`fi ${data.image} mt-0.5`}></i>
+              <p>{data.name}</p>
+            </div>
+          ))}
         </div>
       </div>
     </div>

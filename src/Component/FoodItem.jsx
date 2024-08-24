@@ -10,20 +10,21 @@ function FoodItem() {
       "https://www.swiggy.com/dapi/restaurants/list/v5?lat=18.9690247&lng=72.8205292&is-seo-homepage-enabled=true&page_type=DESKTOP_WEB_LISTING"
     );
     const result = await data.json();
-    console.log(result?.data?.cards[0]?.card?.card?.imageGridCards?.info);
+    console.log(result?.data);
     setFoodData(result?.data?.cards[0]?.card?.card?.imageGridCards?.info);
   }
 
-  useEffect(() => {
-    fetchData();
-  }, []);
-  console.log(val)
   function handlePrev(){
     val<=0 ? "" : setVal((prev)=> prev - 33)
   }
   function handleNext(){
     val>=198 ? "" :setVal((prev)=> prev + 33)
   }
+
+  useEffect(() => {
+    fetchData();
+  }, []);
+
 
   return (
     <div className="w-[70%] mt-3 mx-auto border-b-2 pb-7 overflow-hidden">
@@ -39,9 +40,9 @@ function FoodItem() {
         </div>
       </div>
       <div style={{translate:`-${val}%`}} className={`flex duration-500`}>
-        {foodData.map((item, i) => (
+        {foodData.map((item) => (
           <img
-            key={i}
+            key={item.id}
             className="w-40"
             src={`https://media-assets.swiggy.com/swiggy/image/upload/fl_lossy,f_auto,q_auto,w_288,h_360/${item.imageId}`}
             alt="item"
