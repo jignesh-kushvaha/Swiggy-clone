@@ -19,10 +19,10 @@ function FoodItem() {
   }, []);
   console.log(val)
   function handlePrev(){
-    setVal((prev)=> prev - 20)
+    val<=0 ? "" : setVal((prev)=> prev - 33)
   }
   function handleNext(){
-    setVal((prev)=> prev + 20)
+    val>=198 ? "" :setVal((prev)=> prev + 33)
   }
 
   return (
@@ -30,15 +30,15 @@ function FoodItem() {
       <div className="flex justify-between">
         <h3 className="font-extrabold text-2xl my-2 px-1">What's on your mind?</h3>
         <div className="flex items-center gap-2">
-          <div onClick={handlePrev} className="bg-gray-300 rounded-full cursor-pointer h-8 w-8 flex justify-center items-center pt-1">
-            <i className="fi fi-rs-arrow-left"></i>
+          <div onClick={handlePrev} className={`${val<=0 ? "bg-gray-100" : "bg-gray-300"} rounded-full cursor-pointer h-8 w-8 flex justify-center items-center pt-1`}>
+          <i className={`fi fi-rs-arrow-left ${val<=0 ? "text-gray-400" : "text-black"}`}></i>
           </div>
-          <div onClick={handleNext} className="bg-gray-300 rounded-full cursor-pointer h-8 w-8 flex justify-center items-center pt-1">
-            <i className="fi fi-rs-arrow-right"></i>
+          <div onClick={handleNext} className={`${val>=198 ? "bg-gray-100" : "bg-gray-300"} rounded-full cursor-pointer h-8 w-8 flex justify-center items-center pt-1`}>
+          <i className={`fi fi-rs-arrow-right ${val>=198 ? "text-gray-400" : "text-black"}`}></i>
           </div>
         </div>
       </div>
-      <div className={`flex -translate-x-[${val}%] duration-1000`}>
+      <div style={{translate:`-${val}%`}} className={`flex duration-500`}>
         {foodData.map((item, i) => (
           <img
             key={i}
