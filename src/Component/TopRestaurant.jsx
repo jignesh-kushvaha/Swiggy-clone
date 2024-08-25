@@ -1,6 +1,6 @@
 import React from "react";
 import { useState, useEffect } from "react";
-function TopRestaurant({restaurantData}) {
+function TopRestaurant({ restaurantData }) {
   const [val, setVal] = useState(0);
 
   function handlePrev() {
@@ -11,7 +11,7 @@ function TopRestaurant({restaurantData}) {
   }
 
   return (
-    <div className="border-b-2 mt-7">
+    <div className="border-b-2 mt-7 pb-9">
       <div className="flex justify-between mt-1">
         <h3 className="font-extrabold text-2xl my-2 px-1">Top Resturants</h3>
         <div className="flex items-center gap-2">
@@ -42,7 +42,10 @@ function TopRestaurant({restaurantData}) {
         </div>
       </div>
 
-      <div style={{ translate: `-${val}%` }} className={`flex duration-500 gap-8`}>
+      <div
+        style={{ translate: `-${val}%` }}
+        className={`flex duration-500 gap-8`}
+      >
         {restaurantData.map(({ info }) => (
           <div key={info.id}>
             <div className="min-w-[17rem] h-[12rem] mt-2 relative">
@@ -51,22 +54,33 @@ function TopRestaurant({restaurantData}) {
                 src={`https://media-assets.swiggy.com/swiggy/image/upload/fl_lossy,w_660/${info.cloudinaryImageId}`}
                 alt="item"
               />
-              <div className="w-full h-full rounded-2xl bg-gradient-to-t from-black from-1% to-transparent to-30% absolute top-0"></div>
+              <div className="w-full h-full rounded-2xl bg-gradient-to-t from-black from-2% to-transparent to-30% absolute top-0"></div>
+              <div className="absolute bottom-0 text-[#ffffffeb] px-3 py-2 font-extrabold text-[18px]">
+                {info.aggregatedDiscountInfoV3.header}{" "}
+                {info.aggregatedDiscountInfoV3.subHeader}
+              </div>
             </div>
-            <h2 className="font-bold font-size-[18px] mt-[12px] ml-12px">{info.name}</h2>
-            <div className="flex items-center gap-2">
-              <p>{info.avgRating}</p>
-              <span>.</span>
-              <p>{info.sla.slaString}</p>
-            </div>
-            <div>
-                <p>{(info.cuisines).join(',')}</p>
+
+            <div className="pl-2">
+              <h2 className="font-bold text-[18px] mt-[12px] ml-12px leading-4">
+                {info.name}
+              </h2>
+              <div className="flex h-7 items-center font-medium gap-0.5">
+                <i class="fi fi-sr-circle-star text-green-600 mt-1.5"></i>
+                <p>{info.avgRating}</p>
+                <sup className="text-[30px] mt-3 text-2xl">.</sup>
+                <p>{info.sla.slaString}</p>
+              </div>
+              <div className="text-gray-500 text-semibold">
+                <p>{info.cuisines.join(", ")}</p>
                 <p>{info.locality}</p>
+              </div>
             </div>
+
+
           </div>
         ))}
       </div>
-
     </div>
   );
 }
