@@ -30,7 +30,7 @@ function Heading() {
 
   return (
     <div className="w-full shadow-md h-20 flex justify-center items-center">
-      <div className="w-[80%] flex justify-between">
+      <div className="w-[85%] flex justify-between">
         {/* logo side */}
         <div className="flex">
           <img
@@ -47,7 +47,7 @@ function Heading() {
         </div>
 
         {/* navbar */}
-        <div className="flex items-center gap-14">
+        <div className="flex items-center gap-12 mr-3">
           {menu.map((data, i) => (
             <div key={i} className="flex gap-2 text-gray-600 font-medium">
               <i className={`fi ${data.image} mt-0.5`}></i>

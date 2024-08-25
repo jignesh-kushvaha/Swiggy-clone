@@ -1,23 +1,7 @@
 import React from "react";
 import { useState, useEffect } from "react";
-function TopRestaurant() {
-  const [restaurantData, setRestaurantData] = useState([]);
+function TopRestaurant({restaurantData}) {
   const [val, setVal] = useState(0);
-
-  async function fetchData() {
-    const data = await fetch(
-      "https://www.swiggy.com/dapi/restaurants/list/v5?lat=18.9690247&lng=72.8205292&is-seo-homepage-enabled=true&page_type=DESKTOP_WEB_LISTING"
-    );
-    const result = await data.json();
-    console.log(
-      result?.data?.cards[1]?.card?.card?.gridElements?.infoWithStyle
-        ?.restaurants
-    );
-    setRestaurantData(
-      result?.data?.cards[1]?.card?.card?.gridElements?.infoWithStyle
-        ?.restaurants
-    );
-  }
 
   function handlePrev() {
     val <= 0 ? "" : setVal((prev) => prev - 49);
@@ -26,12 +10,8 @@ function TopRestaurant() {
     val >= 441 ? "" : setVal((prev) => prev + 49);
   }
 
-  useEffect(() => {
-    fetchData();
-  }, []);
-
   return (
-    <>
+    <div className="border-b-2 mt-7">
       <div className="flex justify-between mt-1">
         <h3 className="font-extrabold text-2xl my-2 px-1">Top Resturants</h3>
         <div className="flex items-center gap-2">
@@ -62,18 +42,16 @@ function TopRestaurant() {
         </div>
       </div>
 
-      <div
-        style={{ translate: `-${val}%` }}
-        className={`flex duration-500 gap-8`}
-      >
+      <div style={{ translate: `-${val}%` }} className={`flex duration-500 gap-8`}>
         {restaurantData.map(({ info }) => (
           <div key={info.id}>
-            <div className="min-w-[16rem] h-[12rem] mt-1">
+            <div className="min-w-[17rem] h-[12rem] mt-2 relative">
               <img
                 className="w-full h-full rounded-2xl object-cover"
                 src={`https://media-assets.swiggy.com/swiggy/image/upload/fl_lossy,w_660/${info.cloudinaryImageId}`}
                 alt="item"
               />
+              <div className="w-full h-full rounded-2xl bg-gradient-to-t from-black from-1% to-transparent to-30% absolute top-0"></div>
             </div>
             <h2 className="font-bold font-size-[18px] mt-[12px] ml-12px">{info.name}</h2>
             <div className="flex items-center gap-2">
@@ -84,12 +62,12 @@ function TopRestaurant() {
             <div>
                 <p>{(info.cuisines).join(',')}</p>
                 <p>{info.locality}</p>
-
             </div>
           </div>
         ))}
       </div>
-    </>
+
+    </div>
   );
 }
 

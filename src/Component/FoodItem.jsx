@@ -1,35 +1,18 @@
 import React from "react";
 import { useEffect, useState } from "react";
 
-function FoodItem() {
-  const [foodData, setFoodData] = useState([]);
+function FoodItem({foodData}) {
   const [val,setVal] = useState(0);
 
-  async function fetchData() {
-    const data = await fetch(
-      "https://www.swiggy.com/dapi/restaurants/list/v5?lat=18.9690247&lng=72.8205292&is-seo-homepage-enabled=true&page_type=DESKTOP_WEB_LISTING"
-    );
-    const result = await data.json();
-    // console.log(result?.data);
-    setFoodData(result?.data?.cards[0]?.card?.card?.imageGridCards?.info);
-  }
-
   function handlePrev(){
-    // console.log(val);
     val<=0 ? "" : setVal((prev)=> prev - 49)
   }
   function handleNext(){
-    // console.log(val);
     val>=196 ? "" :setVal((prev)=> prev + 49)
   }
 
-  useEffect(() => {
-    fetchData();
-  }, []);
-
-
   return (
-    <>
+    <div className="border-b-2 pb-7 ">
       <div className="flex justify-between">
         <h3 className="font-extrabold text-2xl my-2 px-1">What's on your mind?</h3>
         <div className="flex items-center gap-2">
@@ -51,7 +34,7 @@ function FoodItem() {
           />
         ))}
       </div>
-    </>
+    </div>
   );
 }
 
