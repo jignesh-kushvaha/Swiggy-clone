@@ -1,4 +1,5 @@
 import FoodItem from "./FoodItem";
+import ResturantWithFoodDelivery from "./ResturantWithFoodDelivery";
 import TopRestaurant from "./TopRestaurant";
 import { useState,useEffect } from "react";
 
@@ -13,8 +14,6 @@ function Body() {
     const result = await data.json();
 
     setFoodData(result?.data?.cards[0]?.card?.card?.imageGridCards?.info);
-    console.log( result?.data?.cards[1]?.card?.card?.gridElements?.infoWithStyle
-      ?.restaurants)
     setTopRestaurantData(
       result?.data?.cards[1]?.card?.card?.gridElements?.infoWithStyle
         ?.restaurants
@@ -31,6 +30,7 @@ function Body() {
       <div className="w-[75%] mt-3 mx-auto overflow-hidden">
         <FoodItem foodData={foodData}/>
         <TopRestaurant restaurantData={topRestaurantData}/>
+        <ResturantWithFoodDelivery restaurantData={topRestaurantData}/>
       </div>
     </div>
   );

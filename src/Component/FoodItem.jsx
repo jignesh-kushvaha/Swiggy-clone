@@ -12,7 +12,7 @@ function FoodItem({foodData}) {
   }
 
   return (
-    <div className="border-b-2 pb-7 ">
+    <div className="border-b-2 pb-12 ">
       <div className="flex justify-between">
         <h3 className="font-extrabold text-2xl my-2 px-1">What's on your mind?</h3>
         <div className="flex items-center gap-2">
