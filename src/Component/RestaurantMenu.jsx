@@ -29,30 +29,45 @@ function RestaurantMenu() {
         <div className='w-[800px] mx-auto pt-6'>
           <p className='text-[12px] text-slate-500 cursor-pointer' ><Link to="/"> <span className='hover:text-slate-700'>home</span> </Link> / <Link to="/"> <span className='hover:text-slate-700'>{resturantInfo.city}</span> </Link> / <span className='text-slate-700 cursor-default'>{resturantInfo.name}</span> </p>
           <h1 className='font-bold pt-6 text-2xl'>{resturantInfo.name}</h1>
+
           <div className='w-full h-[208px] mt-4 bg-gradient-to-t from-slate-300/70 rounded-b-[1.7rem] '>
-            <div className='w-[95%] h-[190px] mx-auto mt-4 p-4 bg-white border border-black/15 rounded-[1.3rem] '>
-              <div className='flex items-center gap-1 font-bold text-[16px]'>
-                <i className="fi fi-sr-circle-star text-green-600 mt-1.5"></i>  
-                <span>{resturantInfo.avgRating}</span>
-                (<span>{resturantInfo.totalRatingsString}</span>)
-                <sup className="text-[18px] text-gray-700/70 mt-3 text-2xl">.</sup>
-                <span>{resturantInfo.costForTwoMessage}</span>
+            <div className='w-[95%] h-[190px] mx-auto mt-4 bg-white border border-black/15 rounded-[1.3rem] '>
+              <div className='px-4 pt-1 mb-4'>
+      
+                <div className='flex items-center gap-1 font-bold text-[16px] h-[28px]'>
+                  <i className="fi fi-sr-circle-star text-green-600 mt-1.5"></i>  
+                  <span>{resturantInfo.avgRating}</span>
+                  (<span>{resturantInfo.totalRatingsString}</span>)
+                  <sup className="text-[18px] text-gray-700/70 mt-3 text-2xl">.</sup>
+                  <span>{resturantInfo.costForTwoMessage}</span>
+                </div>
+
+                <p className='underline cursor-pointer font-bold text-[#ff5200] text-[14px]'>{resturantInfo?.cuisines?.join(", ")}</p>
+
+                <div className='flex gap-2 mt-2'>
+                    <div className='w-[8px] flex flex-col items-center pt-[10px]'>
+                      <div className='w-2 h-2 bg-gray-400 rounded-full'></div>
+                      <div className='w-[2px] h-[23px] bg-gray-400'></div>
+                      <div className='w-2 h-2 bg-gray-400 rounded-full'></div>
+                    </div>
+
+                    <div className='flex flex-col gap-2 font-bold text-base'>
+                      <p>Outlet  <span className='text-gray-400 font-semibold ml-2'>{resturantInfo.locality}</span></p>
+                      <p>{resturantInfo?.sla?.slaString}</p>
+                    </div>
+
+                </div>
+
               </div>
+              <hr/>
 
-              <p className='underline cursor-pointer font-bold text-[#ff5200] text-[14px]'>{resturantInfo?.cuisines?.join(", ")}</p>
-
-              <div className='flex gap-2  mt-2'>
-                  <div className='w-[8px] flex flex-col items-center pt-[10px]'>
-                    <div className='w-2 h-2 bg-gray-400 rounded-full'></div>
-                    <div className='w-[2px] h-[23px] bg-gray-400'></div>
-                    <div className='w-2 h-2 bg-gray-400 rounded-full'></div>
-                  </div>
-
-                  <div className='flex flex-col gap-2 font-bold text-base'>
-                    <p>Outlet  <span className='text-gray-400 font-semibold ml-2'>{resturantInfo.locality}</span></p>
-                    <p>{resturantInfo?.sla?.slaString}</p>
-                  </div>
-
+              <div className='my-3 mx-4'>
+                <div className='flex gap-1'>
+                  <img className='w-6' src={`https://media-assets.swiggy.com/swiggy/image/upload/fl_lossy,f_auto,q_auto,w_40,h_40/${resturantInfo?.feeDetails?.icon}`} alt="" />
+                  {
+                    resturantInfo.length !== 0 && <span>{resturantInfo?.expectationNotifiers[0]?.enrichedText}</span>
+                  }
+                </div>
               </div>
 
             </div>
