@@ -12,8 +12,8 @@ function ResturantWithFoodDelivery({ restaurantData }) {
       </div>
 
       <div className="grid grid-cols-4 gap-8 px-1">
-        {restaurantData.map(({ info }) => (
-            <ResturantData {...info} contentWidth={"15"} contentHeight={"10"}/>
+        {restaurantData.map(({ info , cta:{link}}) => (
+            <ResturantData {...info} contentWidth={"15"} contentHeight={"10"} link={link}/>
         ))}
       </div>
     </div>

@@ -1,10 +1,13 @@
+//use by ResturantWithFoodDelivery and TopResturant components.
+
 import React from "react";
+import {Link} from 'react-router-dom';
 
 function ResturantData(info) {
-    console.log(info)
+  console.log(info.link.split('/').at(-1));
   return (
-    <div key={info.id} className="hover:scale-95 duration-100 cursor-pointer">
-      <div className={`min-w-[${info?.contentWidth}rem] h-[${info?.contentHeight}rem] mt-2 relative`}>
+    <Link to={`ResturantMenu/${info.link.split('/').at(-1)}`} className="hover:scale-95 duration-100 cursor-pointer">
+      <div className={`min-w-17rem] h-[11rem] mt-2 relative`}>
         <img
           className="w-full h-full rounded-2xl object-cover shadow shadow-gray-300 "
           src={`https://media-assets.swiggy.com/swiggy/image/upload/fl_lossy,w_660/${info.cloudinaryImageId}`}
@@ -33,7 +36,7 @@ function ResturantData(info) {
           <p>{info.locality}</p>
         </div>
       </div>
-    </div>
+    </Link>
   );
 }
 

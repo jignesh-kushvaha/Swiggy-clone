@@ -1,4 +1,5 @@
 import React from "react";
+import {Link,Outlet} from "react-router-dom";
 
 function Heading() {
   let menu = [
@@ -29,15 +30,18 @@ function Heading() {
   ];
 
   return (
+    <>
     <div className="w-full shadow-md h-20 flex justify-center items-center">
       <div className="w-[85%] flex justify-between">
         {/* logo side */}
         <div className="flex">
+          <Link to={'/'}>
           <img
             className="w-24"
             src="https://1000logos.net/wp-content/uploads/2021/05/Swiggy-emblem.png"
             alt="logo"
           />
+          </Link>
           <div className="flex items-center gap-3">
             <p className="pb-1 border-b-2 border-black font-bold hover:text-[rgba(236,100,36,1)] hover:border-[#ec6424]">
               Other
@@ -57,6 +61,8 @@ function Heading() {
         </div>
       </div>
     </div>
+    <Outlet/>
+    </>
   );
 }
 

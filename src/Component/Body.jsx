@@ -14,10 +14,7 @@ function Body() {
     const result = await data.json();
 
     setFoodData(result?.data?.cards[0]?.card?.card?.imageGridCards?.info);
-    setTopRestaurantData(
-      result?.data?.cards[1]?.card?.card?.gridElements?.infoWithStyle
-        ?.restaurants
-    );
+    setTopRestaurantData(result?.data?.cards[1]?.card?.card?.gridElements?.infoWithStyle?.restaurants);
 
   }
 
