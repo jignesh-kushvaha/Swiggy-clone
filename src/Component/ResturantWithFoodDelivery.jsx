@@ -11,9 +11,9 @@ function ResturantWithFoodDelivery({ restaurantData }) {
         </h3>
       </div>
 
-      <div className="grid grid-cols-4 gap-8 px-1">
+      <div className="grid grid-cols-4 gap-8 pl-1 pr-5">
         {restaurantData.map(({ info , cta:{link}}) => (
-            <ResturantData {...info} contentWidth={"15"} contentHeight={"10"} link={link}/>
+            <ResturantData {...info} link={link}/>
         ))}
       </div>
     </div>

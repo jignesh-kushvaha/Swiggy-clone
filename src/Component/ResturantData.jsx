@@ -7,7 +7,7 @@ function ResturantData(info) {
   console.log(info.link.split('/').at(-1));
   return (
     <Link to={`ResturantMenu/${info.link.split('/').at(-1)}`} className="hover:scale-95 duration-100 cursor-pointer">
-      <div className={`min-w-17rem] h-[11rem] mt-2 relative`}>
+      <div className={`min-w-[17rem] h-[11rem] mt-2 relative`}>
         <img
           className="w-full h-full rounded-2xl object-cover shadow shadow-gray-300 "
           src={`https://media-assets.swiggy.com/swiggy/image/upload/fl_lossy,w_660/${info.cloudinaryImageId}`}

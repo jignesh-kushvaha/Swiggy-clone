@@ -48,7 +48,7 @@ function TopRestaurant({ restaurantData }) {
         className={`flex duration-500 gap-8 px-1`}
       >
        {restaurantData.map(({ info , cta:{link}}) => (
-            <ResturantData {...info} contentWidth={"17"} contentHeight={"11"} link={link}/>
+            <ResturantData {...info} link={link}/>
         ))}
       </div>
     </div>
