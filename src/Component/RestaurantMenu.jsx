@@ -105,6 +105,7 @@ function RestaurantMenu() {
             {resturantInfo.name}
           </span>{" "}
         </p>
+        
         <h1 className="font-bold pt-6 text-2xl">{resturantInfo.name}</h1>
 
         <div className="w-full h-[208px] mt-4 bg-gradient-to-t from-slate-300/70 rounded-b-[2.3rem] ">
