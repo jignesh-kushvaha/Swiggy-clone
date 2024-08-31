@@ -4,7 +4,7 @@ import React from "react";
 import {Link} from 'react-router-dom';
 
 function ResturantData(info) {
-  console.log(info.link.split('/').at(-1));
+  // console.log(info.link.split('/').at(-1));
   return (
     <Link to={`ResturantMenu/${info.link.split('/').at(-1)}`} className="hover:scale-95 duration-100 cursor-pointer">
       <div className={`min-w-[17rem] h-[11rem] mt-2 relative`}>
