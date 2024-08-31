@@ -11,13 +11,23 @@ function RestaurantMenu() {
 
   async function fetchMenuData() {
     let data = await fetch(
-      `https://www.swiggy.com/dapi/menu/pl?page-type=REGULAR_MENU&complete-menu=true&lat=18.9690247&lng=72.8205292&restaurantId=${id.split("-").at(-1).replace(/\D/g, "")}&catalog_qa=undefined&submitAction=ENTER`
+      `https://www.swiggy.com/dapi/menu/pl?page-type=REGULAR_MENU&complete-menu=true&lat=18.9690247&lng=72.8205292&restaurantId=${id
+        .split("-")
+        .at(-1)
+        .replace(/\D/g, "")}&catalog_qa=undefined&submitAction=ENTER`
     );
     let res = await data.json();
 
     setRestaurantInfo(res?.data?.cards[2]?.card?.card?.info);
-    setDiscountData(res?.data?.cards[3]?.card?.card?.gridElements?.infoWithStyle?.offers);
-    setMenuData(res?.data?.cards[4]?.groupedCard?.cardGroupMap.REGULAR.cards);
+    setDiscountData(
+      res?.data?.cards[3]?.card?.card?.gridElements?.infoWithStyle?.offers
+    );
+
+    let filterMenuData =
+      (res?.data?.cards[4]?.groupedCard?.cardGroupMap?.REGULAR?.cards).filter(
+        (data) => data?.card?.card?.itemCards
+      );
+    setMenuData(filterMenuData);
   }
 
   function handlePrev() {
@@ -27,16 +37,48 @@ function RestaurantMenu() {
     val >= 138 ? "" : setVal((prev) => prev + 46);
   }
 
-  function DiscountComponent({data:{info}}){    
-    return(
+  function DiscountComponent({ data: { info } }) {
+    return (
       <div className="flex min-w-[350px] p-3 border-2 rounded-[20px] gap-2">
-        <img className="w-14 h-14" src={`https://media-assets.swiggy.com/swiggy/image/upload/fl_lossy,f_auto,q_auto,w_96,h_96/${info.offerLogo}`} alt="" />
+        <img
+          className="w-14 h-14"
+          src={`https://media-assets.swiggy.com/swiggy/image/upload/fl_lossy,f_auto,q_auto,w_96,h_96/${info.offerLogo}`}
+          alt=""
+        />
         <div>
           <h2 className="font-bold text-[18px]">{info.header}</h2>
-          <p className="font-bold text-sm text-[#02060c73] ">{info.description}</p>
+          <p className="font-bold text-sm text-[#02060c73] ">
+            {info.description}
+          </p>
         </div>
       </div>
-    )
+    );
+  }
+
+  function MenuDataComponent({ title, itemCards }) {
+    const [isOpen, setIsOpen] = useState(true);
+
+    function toggleDropDown() {
+      setIsOpen((prev) => !prev);
+    }
+
+    return (
+      <div>
+        <div className="flex w-[30%] justify-between m-2 cursor-pointer"  onClick={toggleDropDown}>
+          <h1>
+            {title} (<span>{itemCards.length}</span>)
+          </h1>
+          <i className={isOpen ? `fi fi-rs-angle-small-up` : `fi fi-rs-angle-small-down` }></i>
+        </div>
+        {isOpen && (
+          <div className="border-2 border-gray-300 rounded-md w-[40%] m-5">
+            {itemCards.map(({ card: { info } }) => (
+              <p>{info.name}</p>
+            ))}
+          </div>
+        )}
+      </div>
+    );
   }
 
   useEffect(() => {
@@ -125,9 +167,7 @@ function RestaurantMenu() {
           {/* Discount-section */}
           <div className="border-b-2 px-4 pb-12 overflow-hidden">
             <div className="flex justify-between mt-10">
-              <h3 className="font-bold text-[22px] my-2 px-1">
-                Deals for you
-              </h3>
+              <h3 className="font-bold text-[22px] my-2 px-1">Deals for you</h3>
               <div className="flex items-center gap-2">
                 <div
                   onClick={handlePrev}
@@ -155,15 +195,36 @@ function RestaurantMenu() {
                 </div>
               </div>
             </div>
-            
-            <div style={{ translate: `-${val}%` }} className={`flex duration-500 gap-4 px-1`}>
-                {
-                discountData.map((data,i)=>(
-                  <DiscountComponent key={i} data={data}/>
-                ))
-                }
+
+            <div
+              style={{ translate: `-${val}%` }}
+              className={`flex duration-500 gap-4 px-1`}
+            >
+              {discountData.map((data, i) => (
+                <DiscountComponent key={i} data={data} />
+              ))}
             </div>
-          
+          </div>
+
+          {/* Menu-section */}
+          <div className="w-full mt-8">
+            <h1 className="w-full text-center mb-4">MENU</h1>
+            <div className="w-full bg-[#02060c0d] text-[#02060c99] leading-[48px] text-center rounded-xl font-semibold relative cursor-pointer">
+              Search for dishes
+              <i className="absolute text-lg fi fi-rr-search right-4 top-3 text-[#02060c99]"></i>
+            </div>
+
+            <div>
+              {menuData.map(
+                ({
+                  card: {
+                    card: { itemCards, title },
+                  },
+                }) => (
+                  <MenuDataComponent title={title} itemCards={itemCards} />
+                )
+              )}
+            </div>
           </div>
         </div>
       </div>

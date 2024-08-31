@@ -12,8 +12,8 @@ function ResturantWithFoodDelivery({ restaurantData }) {
       </div>
 
       <div className="grid grid-cols-4 gap-8 pl-1 pr-5">
-        {restaurantData.map(({ info , cta:{link}}) => (
-            <ResturantData {...info} link={link}/>
+        {restaurantData.map(({ info , cta:{link}} ,i) => (
+            <ResturantData key={i} {...info} link={link}/>
         ))}
       </div>
     </div>
