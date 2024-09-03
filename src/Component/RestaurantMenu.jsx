@@ -119,19 +119,22 @@ function RestaurantMenu() {
     console.log(itemCards);
     
     return (
-      <div className="border-2 border-gray-300 rounded-md w-full m-5">
+      <div className="w-full m-5">
         {itemCards.map(({ card: { info:{ name, price, itemAttribute:{vegClassifier}, ratings:{aggregatedRating:{rating, ratingCountV2 }}, description, imageId  } } }) => (
-          <div>
+          <>
+          <div className="flex justify-between bg-white rounded-xl py-3 px-10">
             <div>
               <p>{vegClassifier}</p>
               <h2>{name}</h2> 
               <p>₹{price}</p>
             </div>
             <div>
-              <img src={`https://media-assets.swiggy.com/swiggy/image/upload/fl_lossy,f_auto,q_auto,w_300,h_300,c_fit/${imageId}`} alt="" />
+              {imageId ? <img className="w-[150px] h-[150px] rounded-lg" src={`https://media-assets.swiggy.com/swiggy/image/upload/fl_lossy,f_auto,q_auto,w_300,h_300,c_fit/${imageId}`} alt="" /> : ""}
               <button>ADD</button>
             </div>
           </div>
+          <hr className="border-[1px] border-[#02060c15] my-4 w-[90%] mx-auto" />
+          </>
         ))}
       </div>
     );
