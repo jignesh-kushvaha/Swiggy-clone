@@ -25,8 +25,10 @@ function RestaurantMenu() {
 
     let filterMenuData =
       (res?.data?.cards[4]?.groupedCard?.cardGroupMap?.REGULAR?.cards).filter(
-        (data) => data?.card?.card?.itemCards
+        (data) => data?.card?.card?.itemCards || data?.card?.card?.categories
       );
+    // console.log(filterMenuData);
+
     setMenuData(filterMenuData);
   }
 
@@ -55,28 +57,82 @@ function RestaurantMenu() {
     );
   }
 
-  function MenuDataComponent({ title, itemCards }) {
-    const [isOpen, setIsOpen] = useState(true);
+  function MenuDataComponent({ card }) {
+    let temp_togg = false;
+    if (card["@type"]) {
+      temp_togg = true;
+    }
+    // console.log(card);
+
+    const [isOpen, setIsOpen] = useState(temp_togg);
 
     function toggleDropDown() {
       setIsOpen((prev) => !prev);
     }
 
-    return (
-      <div>
-        <div className="flex w-[30%] justify-between m-2 cursor-pointer"  onClick={toggleDropDown}>
-          <h1>
-            {title} (<span>{itemCards.length}</span>)
-          </h1>
-          <i className={isOpen ? `fi fi-rs-angle-small-up` : `fi fi-rs-angle-small-down` }></i>
-        </div>
-        {isOpen && (
-          <div className="border-2 border-gray-300 rounded-md w-[40%] m-5">
-            {itemCards.map(({ card: { info } }) => (
-              <p>{info.name}</p>
-            ))}
+    if (card.itemCards) {
+      const { title, itemCards } = card;
+      return (
+        <>
+          <div>
+            <div
+              className="flex justify-between mt-5 p-3 cursor-pointer"
+              onClick={toggleDropDown}
+            >
+              <h1
+                className={"font-bold text-" + (card["@type"] ? "xl" : "base")}
+              >
+                {title} (<span>{itemCards.length}</span>)
+              </h1>
+              <i
+                className={
+                  `font-bold text-2xl fi fi-rs-angle-small-` +
+                  (isOpen ? "up" : "down")
+                }
+              ></i>
+            </div>
+            {isOpen && <DetailMenu itemCards={itemCards} />}
           </div>
-        )}
+          <hr
+            className={`${
+              card["@type"]
+                ? "border-[9px] border-[#02060c0d]"
+                : "border-[2px] border-[#02060c0d]"
+            } mb-4`}
+          />
+        </>
+      );
+    } else {
+      const { title, categories } = card;
+      return (
+        <div>
+          <h1 className="font-bold text-xl">{title}</h1>
+          {categories.map((data) => (
+            <MenuDataComponent card={data} />
+          ))}
+        </div>
+      );
+    }
+  }
+
+  function DetailMenu({ itemCards }) {
+    console.log(itemCards);
+    
+    return (
+      <div className="border-2 border-gray-300 rounded-md w-full m-5">
+        {itemCards.map(({ card: { info:{ name, price, itemAttribute:{vegClassifier}, ratings:{aggregatedRating:{rating, ratingCountV2 }}, description, imageId  } } }) => (
+          <div>
+            <div>
+              <p>{vegClassifier}</p>
+              <h2>{name}</h2> 
+              <p>₹{price}</p>
+            </div>
+            <div>
+              <img src={`https://media-assets.swiggy.com/swiggy/image/upload/fl_lossy,f_auto,q_auto,w_300,h_300,c_fit/${imageId}`} alt="" />
+              <button>ADD</button>
+            </div>
+          </div>
+        ))}
       </div>
     );
   }
@@ -105,7 +161,7 @@ function RestaurantMenu() {
             {resturantInfo.name}
           </span>{" "}
         </p>
-        
+
         <h1 className="font-bold pt-6 text-2xl">{resturantInfo.name}</h1>
 
         <div className="w-full h-[208px] mt-4 bg-gradient-to-t from-slate-300/70 rounded-b-[2.3rem] ">
@@ -215,16 +271,10 @@ function RestaurantMenu() {
               <i className="absolute text-lg fi fi-rr-search right-4 top-3 text-[#02060c99]"></i>
             </div>
 
-            <div>
-              {menuData.map(
-                ({
-                  card: {
-                    card: { itemCards, title },
-                  },
-                }) => (
-                  <MenuDataComponent title={title} itemCards={itemCards} />
-                )
-              )}
+            <div className="w-full">
+              {menuData.map(({ card: { card } }, i) => (
+                <MenuDataComponent key={i} card={card} />
+              ))}
             </div>
           </div>
         </div>
